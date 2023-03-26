@@ -16,3 +16,12 @@ variable "project" {
 variable "owner" {
   default = "shun198"
 }
+
+# プロジェクトのオーナーを設定
+variable "db_username" {
+  description = "Username for the RDS postgres instance"
+}
+
+variable "db_password" {
+  description = "Password for the RDS postgres instance"
+}
