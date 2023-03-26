@@ -17,7 +17,7 @@ resource "aws_db_subnet_group" "main" {
 
 resource "aws_security_group" "rds" {
   description = "Allow access to RDS"
-  name        = "${local.prefix}-rds-inbound-access"
+  name        = "${local.prefix}-rds-sg"
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -31,12 +31,12 @@ resource "aws_security_group" "rds" {
 
 resource "aws_db_instance" "main" {
   identifier              = "${local.prefix}-db"
-  db_name                 = "terraform-playground-postgres"
+  db_name                 = "postgres"
   allocated_storage       = 20
   storage_type            = "gp2"
   engine                  = "postgres"
   engine_version          = "15.2"
-  instance_class          = "db.t2.micro"
+  instance_class          = "db.t3.small"
   db_subnet_group_name    = aws_db_subnet_group.main.name
   password                = var.db_password
   username                = var.db_username
