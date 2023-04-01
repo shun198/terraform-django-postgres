@@ -21,14 +21,15 @@ resource "aws_security_group" "rds" {
   vpc_id      = aws_vpc.main.id
 
   ingress {
-    protocol  = "tcp"
-    from_port = 5432
-    to_port   = 5432
+    protocol    = "tcp"
+    from_port   = 5432
+    to_port     = 5432
+    cidr_blocks = ["10.0.0.0/16"]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
+    from_port = 0
+    to_port   = 0
     // -1を指定することでプロトコル関係なく全てのトラフィックを許可させることができる
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
