@@ -35,7 +35,10 @@ resource "aws_security_group" "rds" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags = local.common_tags
+  tags = merge(
+    local.common_tags,
+    tomap({ "Name" = "${local.prefix}-rds-sg" })
+  )
 }
 
 resource "aws_db_instance" "main" {
