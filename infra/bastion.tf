@@ -1,6 +1,15 @@
 # ------------------------------
 # Bastion Server Configuration
 # ------------------------------
+data "aws_ami" "amazon_linux" {
+  most_recent = true
+  filter {
+    name   = "name"
+    values = ["amzn2-ami-hvm-3.0.*-x86_64-gp2"]
+  }
+  owners = ["amazon"]
+}
+
 resource "aws_instance" "bastion" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
@@ -15,7 +24,7 @@ resource "aws_instance" "bastion" {
   # mergeを使うことで一部のmain.tfにあるcommon_tagsをoverrideできる
   tags = merge(
     local.common_tags,
-    map("Name", "${local.prefix}-bastion")
+    tomap({ "Name" = "${local.prefix}-bastion" })
   )
 }
 resource "aws_security_group" "bastion" {
@@ -54,8 +63,9 @@ resource "aws_security_group" "bastion" {
       aws_subnet.private_c.cidr_block,
     ]
   }
+
   tags = merge(
     local.common_tags,
-    map("Name", "${local.prefix}-bastion")
+    tomap({ "Name" = "${local.prefix}-bastion-sg" })
   )
 }
