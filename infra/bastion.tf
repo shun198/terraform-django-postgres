@@ -13,6 +13,7 @@ data "aws_ami" "amazon_linux" {
 resource "aws_instance" "bastion" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
+  user_data            = file("./scripts/bastion/user-data.sh")
   key_name      = var.bastion_key_name
   # パブリックサブネットに配置
   subnet_id = aws_subnet.public_a.id
@@ -39,20 +40,6 @@ resource "aws_security_group" "bastion" {
     to_port     = 22
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  # egress {
-  #   protocol    = "tcp"
-  #   from_port   = 443
-  #   to_port     = 443
-  #   cidr_blocks = ["0.0.0.0/0"]
-  # }
-
-  # egress {
-  #   protocol    = "tcp"
-  #   from_port   = 80
-  #   to_port     = 80
-  #   cidr_blocks = ["0.0.0.0/0"]
-  # }
 
   egress {
     from_port = 5432
