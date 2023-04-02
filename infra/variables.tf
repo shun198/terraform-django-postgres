@@ -25,3 +25,7 @@ variable "db_username" {
 variable "db_password" {
   description = "Password for the RDS postgres instance"
 }
+
+variable "bastion_key_name" {
+  default = "deploy-django-pj"
+}
