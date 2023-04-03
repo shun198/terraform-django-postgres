@@ -13,7 +13,7 @@ data "aws_ami" "amazon_linux" {
 resource "aws_instance" "bastion" {
   ami           = data.aws_ami.amazon_linux.id
   instance_type = "t2.micro"
-  user_data            = file("./scripts/bastion/user-data.sh")
+  user_data     = file("./scripts/bastion/user-data.sh")
   key_name      = var.bastion_key_name
   # パブリックサブネットに配置
   subnet_id = aws_subnet.public_a.id
