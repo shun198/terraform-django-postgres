@@ -29,3 +29,4 @@ variable "db_password" {
 variable "bastion_key_name" {
   default = "deploy-django-pj"
 }
+
