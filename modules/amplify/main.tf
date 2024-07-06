@@ -1,4 +1,4 @@
-// amplify用のbasic認証
+
 locals {
   amplify_auth = base64encode("${var.amplify_username}:${var.amplify_password}")
 }
