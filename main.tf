@@ -31,21 +31,6 @@ provider "aws" {
 }
 
 # ------------------------------
-# Locals
-# ------------------------------
-locals {
-  # variables.tfから変数を取得
-  # terraformのworkspaceの一覧から該当するworkspace(dev,stg,prdなど)を取得
-  prefix = "${var.prefix}-${terraform.workspace}"
-  common_tags = {
-    Environmnet = terraform.workspace
-    Project     = var.project
-    Owner       = var.owner
-    ManagedBy   = "Terraform"
-  }
-}
-
-# ------------------------------
 # Current AWS Region(ap-northeast-1)
 # ------------------------------
 # 現在のAWS Regionの取得方法
